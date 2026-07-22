@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Prototipo editorial de una red interactiva de casos de integridad pública." />
   <title>Trama · Atlas de integridad pública</title>
-  <link rel="stylesheet" href="styles.css?v=37" />
+  <link rel="stylesheet" href="styles.css?v=40" />
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -36,17 +36,17 @@
         <button id="clearFilters">Limpiar</button>
       </div>
       <div class="filters" id="filters">
-        <button class="filter active" data-filter="all"><i class="dot dot-all"></i> Todos <b>54</b></button>
+        <button class="filter active" data-filter="all"><i class="dot dot-all"></i> Todos <b>58</b></button>
         <button class="filter" data-filter="investigacion"><i class="dot dot-amber"></i> En investigación <b>5</b></button>
         <button class="filter" data-filter="procesamiento"><i class="dot dot-teal"></i> Procedimiento abreviado <b>4</b></button>
         <button class="filter" data-filter="juicio"><i class="dot dot-violet"></i> Juicio abierto <b>0</b></button>
         <button class="filter" data-filter="revision"><i class="dot dot-blue"></i> En revisión / no firme <b>11</b></button>
-        <button class="filter" data-filter="condena"><i class="dot dot-red"></i> Sentencia firme <b>24</b></button>
-        <button class="filter" data-filter="absuelto"><i class="dot dot-green"></i> Absuelto <b>4</b></button>
+        <button class="filter" data-filter="condena"><i class="dot dot-red"></i> Sentencia firme <b>25</b></button>
+        <button class="filter" data-filter="absuelto"><i class="dot dot-green"></i> Absuelto <b>7</b></button>
         <button class="filter" data-filter="archivo"><i class="dot dot-slate"></i> Archivado / sobreseído <b>6</b></button>
       </div>
 
-      <div class="case-head"><span>CASOS DOCUMENTADOS</span><span id="caseTotal">37</span></div>
+      <div class="case-head"><span>CASOS DOCUMENTADOS</span><span id="caseTotal">40</span></div>
       <div class="case-list" id="caseList"></div>
 
       <div class="source-card">
@@ -87,9 +87,9 @@
       </div>
 
       <div class="network-stats">
-        <div><strong id="peopleMetric">52</strong><span>personas verificadas</span></div>
-        <div><strong id="caseMetric">37</strong><span>casos documentados</span></div>
-        <div><strong id="linkMetric">89</strong><span>relaciones trazables</span></div>
+        <div><strong id="peopleMetric">56</strong><span>personas verificadas</span></div>
+        <div><strong id="caseMetric">40</strong><span>casos documentados</span></div>
+        <div><strong id="linkMetric">97</strong><span>relaciones trazables</span></div>
         <div class="last-update"><i></i><span>Última revisión<br><b>22 JUL 2026</b></span></div>
       </div>
     </section>
@@ -145,7 +145,7 @@
         </section>
       </div>
 
-      <div class="editorial-warning"><b>Alcance actual</b><p>37 expedientes reales y documentados; el catálogo todavía no es exhaustivo. Toda persona conserva la presunción de inocencia salvo condena firme.</p></div>
+      <div class="editorial-warning"><b>Alcance actual</b><p>40 expedientes reales y documentados; el catálogo todavía no es exhaustivo. Toda persona conserva la presunción de inocencia salvo condena firme.</p></div>
     </aside>
   </main>
 
@@ -172,8 +172,8 @@
       <h2 id="coverageTitle">Lo publicado y lo pendiente</h2>
       <p>Este atlas crece por expedientes verificables, no por listas partidistas. El repositorio del CGPJ sirve como marco general, pero publica datos agregados y no clasifica procedimientos por partido; por eso cada incorporación exige una resolución y una identificación concordante.</p>
       <div class="coverage-summary">
-        <div><strong id="coverageCases">37</strong><span>expedientes publicados</span></div>
-        <div><strong id="coverageActors">54</strong><span>actores visibles</span></div>
+        <div><strong id="coverageCases">40</strong><span>expedientes publicados</span></div>
+        <div><strong id="coverageActors">58</strong><span>actores visibles</span></div>
         <div><strong>4</strong><span>líneas pendientes</span></div>
       </div>
       <div class="coverage-columns">
@@ -190,7 +190,7 @@
           <ul>
             <li>Otras piezas de ERE, FAFFE y formación.</li>
             <li>Personas físicas de Fitonovo aún anonimizadas en las fuentes.</li>
-            <li>Marey, fondos reservados y Púnica-Cofely en Parla ya incorporados; Fuenlabrada descartado por corresponder a IU.</li>
+            <li>Marey, fondos reservados, Púnica-Cofely, las dos causas de Juan Guerra y la absolución de Acinipo ya están incorporados.</li>
           </ul>
         </section>
       </div>
@@ -198,6 +198,6 @@
     </div>
   </div>
 
-<script src="app.js?v=37"></script>
+<script src="app.js?v=40"></script>
 </body>
 </html>
