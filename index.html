@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Prototipo editorial de una red interactiva de casos de integridad pública." />
+  <title>Trama · Atlas de integridad pública</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Trama, inicio">
+      <span class="brand-mark"><i></i><i></i><i></i></span>
+      <span>TRAMA<small>Atlas de integridad pública</small></span>
+    </a>
+    <div class="scope-pill"><span></span> PSOE · CATÁLOGO EN CONSTRUCCIÓN</div>
+    <div class="top-actions">
+      <button class="coverage-button" id="coverageButton"><span></span> Cobertura</button>
+      <button class="icon-button" id="aboutButton" aria-label="Metodología">?</button>
+      <button class="share-button" id="shareButton"><span>↗</span> Compartir vista</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="eyebrow">EXPLORADOR</div>
+      <label class="search-box">
+        <span>⌕</span>
+        <input id="searchInput" type="search" placeholder="Buscar persona, trama o delito" autocomplete="off" />
+        <kbd>⌘ K</kbd>
+      </label>
+
+      <div class="filter-head">
+        <span>FILTRAR POR ESTADO</span>
+        <button id="clearFilters">Limpiar</button>
+      </div>
+      <div class="filters" id="filters">
+        <button class="filter active" data-filter="all"><i class="dot dot-all"></i> Todos <b>29</b></button>
+        <button class="filter" data-filter="investigacion"><i class="dot dot-amber"></i> En investigación <b>1</b></button>
+        <button class="filter" data-filter="procesamiento"><i class="dot dot-teal"></i> Procedimiento abreviado <b>3</b></button>
+        <button class="filter" data-filter="juicio"><i class="dot dot-violet"></i> Juicio abierto <b>3</b></button>
+        <button class="filter" data-filter="revision"><i class="dot dot-blue"></i> En revisión / no firme <b>4</b></button>
+        <button class="filter" data-filter="condena"><i class="dot dot-red"></i> Sentencia firme <b>15</b></button>
+        <button class="filter" data-filter="absuelto"><i class="dot dot-green"></i> Absuelto <b>2</b></button>
+        <button class="filter" data-filter="archivo"><i class="dot dot-slate"></i> Archivado / sobreseído <b>1</b></button>
+      </div>
+
+      <div class="case-head"><span>CASOS DOCUMENTADOS</span><span id="caseTotal">23</span></div>
+      <div class="case-list" id="caseList"></div>
+
+      <div class="source-card">
+        <div class="source-icon">✓</div>
+        <div><strong>Rigor documental</strong><p>Priorizamos resoluciones; si el documento no es público, la fuente secundaria se identifica expresamente.</p></div>
+      </div>
+    </aside>
+
+    <section class="stage" aria-label="Mapa de relaciones">
+      <div class="stage-head">
+        <div>
+          <div class="eyebrow">MAPA DE RELACIONES</div>
+          <h1>La red, a simple vista</h1>
+        </div>
+        <div class="view-switch" role="group" aria-label="Vista">
+          <button class="active" data-view="network">◉ Red</button>
+          <button data-view="timeline">≋ Cronología</button>
+        </div>
+      </div>
+
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="networkCanvas"></canvas>
+        <div class="timeline-view" id="timelineView" hidden></div>
+        <div class="canvas-hint"><span>ARRASTRA</span> para rotar · <span>RUEDA</span> para acercar</div>
+        <div class="legend">
+          <span><i class="legend-node person"></i> Persona</span>
+          <span><i class="legend-node entity"></i> Entidad</span>
+          <span><i class="legend-node case"></i> Trama</span>
+          <span><i class="legend-line"></i> Relación documentada</span>
+        </div>
+        <div class="zoom-tools">
+          <button id="zoomIn" aria-label="Acercar">+</button>
+          <button id="zoomOut" aria-label="Alejar">−</button>
+          <button id="resetView" aria-label="Restablecer vista">⌖</button>
+        </div>
+        <div class="hover-card" id="hoverCard" hidden></div>
+        <div class="empty-state" id="emptyState" hidden>No hay nodos que coincidan con la búsqueda.</div>
+      </div>
+
+      <div class="network-stats">
+        <div><strong id="peopleMetric">35</strong><span>personas verificadas</span></div>
+        <div><strong id="caseMetric">23</strong><span>casos documentados</span></div>
+        <div><strong id="linkMetric">57</strong><span>relaciones trazables</span></div>
+        <div class="last-update"><i></i><span>Última revisión<br><b>22 JUL 2026</b></span></div>
+      </div>
+    </section>
+
+    <aside class="detail-panel" id="detailPanel">
+      <div class="detail-top">
+        <div class="eyebrow">FICHA DOCUMENTAL</div>
+        <button id="closeDetail" aria-label="Cerrar detalle">×</button>
+      </div>
+      <div class="identity">
+        <div class="avatar" id="avatar">DM</div>
+        <div class="status-badge" id="statusBadge"><i></i> DEMOSTRACIÓN</div>
+        <h2 id="personName">Selecciona un nodo</h2>
+        <p id="personRole">Explora la red para consultar su ficha</p>
+      </div>
+
+      <div class="detail-tabs">
+        <button class="active" data-tab="resumen">Resumen</button>
+        <button data-tab="fuentes">Fuentes <span id="sourceCount">0</span></button>
+      </div>
+
+      <div class="tab-content active" id="tab-resumen">
+        <section class="detail-section">
+          <h3 id="relationSectionTitle">TRAMA VINCULADA</h3>
+          <div class="linked-cases" id="linkedCases"><p class="placeholder">Selecciona una persona.</p></div>
+        </section>
+        <section class="detail-section">
+          <h3 id="processSectionTitle">SITUACIÓN PROCESAL</h3>
+          <div class="charge-card" id="chargeCard">
+            <span class="charge-icon">§</span>
+            <div><strong>No seleccionada</strong><p>La ficha diferencia investigación, acusación y condena.</p></div>
+          </div>
+        </section>
+        <section class="detail-section">
+          <h3 id="moneySectionTitle">CUANTÍA ATRIBUIBLE</h3>
+          <div class="money-card">
+            <div><span id="moneyLabel">NO DETERMINADA</span><strong id="moneyValue">—</strong></div>
+            <small class="money-kind" id="moneyKind">NO SUMABLE / NO DETERMINADA</small>
+            <p id="moneyNote">Solo se muestran cantidades con contexto, alcance y fuente.</p>
+          </div>
+        </section>
+        <section class="detail-section compact">
+          <h3>RED RELACIONADA <span id="connectionCount">0</span></h3>
+          <p class="relation-disclaimer">La iluminación indica coincidencia documental en una pieza; no demuestra por sí sola coordinación delictiva.</p>
+          <div class="connections" id="connections"><p class="placeholder">Al seleccionar un actor se desplegará su trama documentada.</p></div>
+        </section>
+      </div>
+
+      <div class="tab-content" id="tab-fuentes">
+        <section class="detail-section">
+          <h3>TRAZABILIDAD</h3>
+          <div id="sources" class="sources-list"><p class="placeholder">Las fuentes aparecerán aquí, con fecha y fragmento relevante.</p></div>
+        </section>
+      </div>
+
+      <div class="editorial-warning"><b>Alcance actual</b><p>18 expedientes reales y documentados; el catálogo todavía no es exhaustivo. Toda persona conserva la presunción de inocencia salvo condena firme.</p></div>
+    </aside>
+  </main>
+
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose">×</button>
+      <div class="eyebrow">METODOLOGÍA</div>
+      <h2 id="modalTitle">Hechos, no insinuaciones</h2>
+      <p>El producto final distinguirá estrictamente entre una relación política, una mención en diligencias, una investigación formal, una acusación y una condena firme.</p>
+      <div class="method-grid">
+        <div><b>01</b><strong>Fuente prioritaria</strong><span>Autos, sentencias y fiscalización; prensa identificada solo cuando el documento primario no es público.</span></div>
+        <div><b>02</b><strong>Fecha de corte</strong><span>Cada ficha indica cuándo fue verificada.</span></div>
+        <div><b>03</b><strong>Derecho de réplica</strong><span>Incluye versiones, recursos y archivos.</span></div>
+        <div><b>04</b><strong>Tipo de vínculo</strong><span>Distingue relación documentada de mera coincidencia en una pieza.</span></div>
+        <div><b>05</b><strong>Cuantías no sumables</strong><span>Separa perjuicio, multa, dádiva, comiso y volumen contractual.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="coverageModal" hidden>
+    <div class="modal coverage-modal" role="dialog" aria-modal="true" aria-labelledby="coverageTitle">
+      <button class="modal-close" id="coverageClose">×</button>
+      <div class="eyebrow">COBERTURA EDITORIAL</div>
+      <h2 id="coverageTitle">Lo publicado y lo pendiente</h2>
+      <p>Este atlas crece por expedientes verificables, no por listas partidistas. El repositorio del CGPJ sirve como marco general, pero publica datos agregados y no clasifica procedimientos por partido; por eso cada incorporación exige una resolución y una identificación concordante.</p>
+      <div class="coverage-summary">
+        <div><strong id="coverageCases">23</strong><span>expedientes publicados</span></div>
+        <div><strong id="coverageActors">36</strong><span>actores visibles</span></div>
+        <div><strong>6</strong><span>líneas pendientes</span></div>
+      </div>
+      <div class="coverage-columns">
+        <section>
+          <h3>PUBLICADO EN ESTA ENTREGA</h3>
+          <ul>
+            <li>Resoluciones penales, constitucionales y contables diferenciadas.</li>
+            <li>Condenas, absoluciones, archivos y revisiones con igual visibilidad.</li>
+            <li>Cuantías clasificadas por su naturaleza y sin suma global engañosa.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>COLA DE VERIFICACIÓN</h3>
+          <ul>
+            <li>Otras piezas de ERE, FAFFE y formación.</li>
+            <li>Personas físicas de Fitonovo aún anonimizadas en las fuentes.</li>
+            <li>Roldán y Fuenlabrada, pendientes de cruce primario suficiente.</li>
+          </ul>
+        </section>
+      </div>
+      <a class="coverage-source" href="https://www.poderjudicial.es/cgpj/es/Temas/Transparencia/Repositorio-de-datos-sobre-procesos-por-corrupcion/" target="_blank" rel="noreferrer">Consultar el marco estadístico oficial del CGPJ ↗</a>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
