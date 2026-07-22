@@ -1,5 +1,7 @@
 const SOURCE_MASKS = 'https://www.poderjudicial.es/cgpj/es/Poder-Judicial/Tribunal-Supremo/Oficina-de-Comunicacion/Notas-de-prensa/El-instructor-del-Tribunal-Supremo-abre-juicio-oral-al-exministro-Abalos--su-exasesor-Koldo-Garcia-y-el-empresario-Aldama-por-la-contratacion-irregular-de-mascarillas-durante-la-pandemia-de-COVID';
 const SOURCE_MASKS_TRIAL = 'https://www.poderjudicial.es/cgpj/es/Poder-Judicial/Tribunal-Supremo/Oficina-de-Comunicacion/Notas-de-prensa/El-Tribunal-Supremo-rechaza-todas-las-cuestiones-previas-planteadas-por-las-defensas-del-exministro-Jose-Luis-Abalos-y-su-exasesor-Koldo-Garcia-y-senala-el-7-de-abril-el-inicio-del-juicio';
+const SOURCE_MASKS_SENTENCE = 'https://www.europapress.es/nacional/noticia-supremo-condena-abalos-24-anos-carcel-19-koldo-aldama-caso-mascarillas-20260622121517.html';
+const SOURCE_MASKS_NULLITY = 'https://elpais.com/espana/2026-07-15/abalos-pide-al-supremo-que-anule-su-condena-porque-su-caso-debio-juzgarse-en-la-audiencia-nacional.html';
 const SOURCE_WORKS = 'https://www.poderjudicial.es/portal/site/cgpj/menuitem.65d2c4456b6ddb628e635fc1dc432ea0/?lang_choosen=en&perfil=0&vgnextchannel=ccc9c38cb605c210VgnVCM100000cb34e20aRCRD&vgnextfmt=default&vgnextlocale=en&vgnextoid=4c6dd75e42f1c910VgnVCM1000004648ac0aRCRD';
 const SOURCE_CERDAN = 'https://www.poderjudicial.es/cgpj/es/Poder-Judicial/Tribunal-Supremo/Oficina-de-Comunicacion/Notas-de-prensa/El-Tribunal-Supremo-confirma-la-prision-provisional-de-Santos-Cerdan-por-riesgo-de-destruccion-de-pruebas-ante-indicios-de-su--papel-directivo--en-la-trama-que-se-investiga';
 const SOURCE_ERE_TC = 'https://hj.tribunalconstitucional.es/HJ/es/Resolucion/Show/31221';
@@ -43,9 +45,14 @@ const SOURCE_PLUS_ULTRA_DAUGHTERS = 'https://www.elnacional.cat/uploads/s1/58/81
 const SOURCE_PLUS_ULTRA_EFE = 'https://efe.com/espana/2026-06-18/hijas-zapatero-imputadas-plus-ultra/';
 const SOURCE_BEGONA_EFE = 'https://efe.com/espana/2026-07-18/caso-begona-gomez-pasos/';
 const SOURCE_DAVID_SENTENCE = 'https://descargables.elpais.com/sentencia-condena-david-sanchez-miguel-angel-gallardo.pdf';
+const SOURCE_ROLDAN_TC = 'https://www.boe.es/diario_boe/txt.php?id=BOE-A-2011-13301';
+const SOURCE_ROLDAN_RTVE = 'https://www.rtve.es/noticias/20220324/muere-luis-roldan/2321691.shtml';
+const SOURCE_ROLDAN_LIQUIDATION = 'https://elpais.com/elpais/2005/01/13/actualidad/1105607820_850215.html';
+const SOURCE_URRALBURU_TS = 'https://www.poderjudicial.es/stfls/CGPJ/CENDOJ/PUBLICACIONES/REVISTA%20PJ%20-%205%C2%AA%20%C3%A9poca/FICHERO/PJ11091.pdf';
+const SOURCE_URRALBURU_HISTORY = 'https://www.eldiario.es/navarra/25-anos-condena-socialista-urralburu-primer-presidente-autonomico-encarcelado-cobro-comisiones_1_10494636.amp.html';
 
 const cases = [
-  { id:'mascarillas', name:'Caso mascarillas', subtitle:'Contratación durante la pandemia', color:'#7fe7f2', status:'juicio', x:0, y:-65, z:55, milestoneDate:'2026-03-04', milestone:'El Supremo fija el comienzo del juicio oral' },
+  { id:'mascarillas', name:'Caso mascarillas', subtitle:'Contratación durante la pandemia', color:'#7fe7f2', status:'revision', x:0, y:-65, z:55, milestoneDate:'2026-06-22', milestone:'El Supremo dicta sentencia; Ábalos solicita su nulidad' },
   { id:'obras', name:'Pieza de obras públicas', subtitle:'Adjudicaciones y presuntas comisiones', color:'#f2b84b', status:'investigacion', x:185, y:95, z:-70, milestoneDate:'2026-02-02', milestone:'La pieza se remite a la Audiencia Nacional' },
   { id:'ere', name:'ERE · pieza específica', subtitle:'Ayudas sociolaborales de Andalucía', color:'#6c8cff', status:'revision', x:-190, y:100, z:-95, milestoneDate:'2025-07-15', milestone:'La Audiencia eleva una cuestión prejudicial al TJUE' },
   { id:'invercaria', name:'Caso Invercaria', subtitle:'Préstamos e incrementos retributivos', color:'#ff6f7d', status:'condena', x:245, y:-145, z:-125, milestoneDate:'2024-09-19', milestone:'El Supremo dicta condena en la pieza de retribuciones' },
@@ -67,12 +74,15 @@ const cases = [
   { id:'azud', name:'Caso Azud', subtitle:'Operaciones urbanísticas y contratos en Valencia', color:'#6bd4ff', status:'investigacion', x:450, y:180, z:-85, milestoneDate:'2025-06-21', milestone:'Un informe de la UCO atribuye una horquilla de comisiones investigadas' },
   { id:'plus_ultra', name:'Caso Plus Ultra', subtitle:'Rescate público y presunto tráfico de influencias', color:'#ffcf5c', status:'investigacion', x:10, y:-310, z:-105, milestoneDate:'2026-06-18', milestone:'El instructor amplía las diligencias a las hijas de Zapatero' },
   { id:'begona_gomez', name:'Caso Begoña Gómez', subtitle:'Actividad profesional y uso de recursos públicos', color:'#ff7aa8', status:'procesamiento', x:520, y:-55, z:-95, milestoneDate:'2026-07-16', milestone:'La Audiencia ordena continuar por dos presuntos delitos' },
-  { id:'david_sanchez', name:'Caso David Sánchez', subtitle:'Creación y adaptación de un puesto en Badajoz', color:'#9db5ff', status:'revision', x:-520, y:25, z:-90, milestoneDate:'2026-07-14', milestone:'Condena de primera instancia recurrible por prevaricación' }
+  { id:'david_sanchez', name:'Caso David Sánchez', subtitle:'Creación y adaptación de un puesto en Badajoz', color:'#9db5ff', status:'revision', x:-520, y:25, z:-90, milestoneDate:'2026-07-14', milestone:'Condena de primera instancia recurrible por prevaricación' },
+  { id:'roldan', name:'Caso Roldán', subtitle:'Fondos reservados, comisiones y contratos de la Guardia Civil', color:'#ff5f6d', status:'condena', x:-570, y:-150, z:-155, milestoneDate:'1999-12-21', milestone:'El Supremo eleva a 31 años la pena de prisión' },
+  { id:'urralburu', name:'Caso Urralburu', subtitle:'Comisiones por adjudicaciones de obra pública en Navarra', color:'#cda8ff', status:'condena', x:-590, y:175, z:-165, milestoneDate:'2001-03-28', milestone:'El Supremo fija la condena firme por cohecho' }
 ];
 
 const sharedMasksSources = [
   { title:'Auto de apertura de juicio oral', date:'Tribunal Supremo · 11 DIC 2025', url:SOURCE_MASKS },
-  { title:'Señalamiento del juicio y cuestiones previas', date:'Tribunal Supremo · 04 MAR 2026', url:SOURCE_MASKS_TRIAL }
+  { title:'Sentencia y fallo individualizado', date:'Tribunal Supremo / Europa Press · 22 JUN 2026', url:SOURCE_MASKS_SENTENCE },
+  { title:'Incidente de nulidad promovido por Ábalos', date:'Tribunal Supremo / EL PAÍS · 15 JUL 2026', url:SOURCE_MASKS_NULLITY }
 ];
 const sharedWorksSources = [
   { title:'Remisión de la pieza de obras a la Audiencia Nacional', date:'Tribunal Supremo · 02 FEB 2026', url:SOURCE_WORKS }
@@ -83,7 +93,7 @@ const ereSources = [
 ];
 
 const caseProfiles = {
-  mascarillas:{phase:'Juicio oral señalado',phaseNote:'Tres acusados en la pieza inicial de contratación de mascarillas. Las calificaciones son provisionales hasta sentencia.',money:'No determinado',moneyLabel:'PERJUICIO PÚBLICO PROBADO',moneyNote:'Las fianzas de 60.000 € no son una estimación de dinero sustraído ni del valor de los contratos.',sources:sharedMasksSources},
+  mascarillas:{phase:'Sentencia del Tribunal Supremo; nulidad solicitada',phaseNote:'Ábalos y Koldo fueron condenados por organización criminal, cohecho, tráfico de influencias y malversación; Aldama, por organización criminal y cohecho. Los tres fueron absueltos de otras acusaciones. Ábalos ha promovido un incidente de nulidad como paso previo al amparo.',money:'430.298 €',moneyLabel:'GANANCIAS DE COHECHO OBJETO DE COMISO',moneyNote:'Comiso conjunto acordado en la sentencia: 340.000 € en pagos mensuales y 90.298 € en rentas de viviendas. No se duplica en las fichas personales ni equivale al volumen de contratos.',sources:sharedMasksSources},
   obras:{phase:'Instrucción en la Audiencia Nacional',phaseNote:'La pieza sobre adjudicaciones de obra pública fue remitida al Juzgado Central de Instrucción nº 2.',money:'≈ 1 M€',moneyLabel:'FLUJO INVESTIGADO EN LA TRAMA',moneyNote:'La resolución cita además 537,27 M€ de obras adjudicadas; ese volumen contractual no equivale a perjuicio público.',sources:[{title:'Remisión a la Audiencia Nacional',date:'Tribunal Supremo · 02 FEB 2026',url:SOURCE_WORKS},{title:'Auto sobre indicios y flujo investigado',date:'Tribunal Supremo · 23 JUL 2025',url:SOURCE_CERDAN}]},
   ere:{phase:'Revisión suspendida por cuestión prejudicial',phaseNote:'La Audiencia de Sevilla suspendió la ejecución de los mandatos del Constitucional hasta la respuesta del TJUE.',money:'No consolidable',moneyLabel:'CUANTÍA DE LA PIEZA',moneyNote:'No se muestra como “robado” el presupuesto agregado del programa; las responsabilidades deben analizarse por persona y pieza.',sources:ereSources},
   invercaria:{phase:'Varias piezas con resultados distintos',phaseNote:'Existen condenas firmes y absoluciones en función del préstamo o actuación enjuiciada.',money:'Por pieza',moneyLabel:'RESPONSABILIDAD ECONÓMICA',moneyNote:'No se suman préstamos, retribuciones e indemnizaciones de causas diferentes como si fueran un único perjuicio.',sources:[{title:'Pieza Aceitunas Tatis',date:'Tribunal Supremo · 20 OCT 2022',url:SOURCE_INVER_TATIS},{title:'Pieza Fumapa',date:'Tribunal Supremo · 14 MAR 2024',url:SOURCE_INVER_FUMAPA},{title:'Pieza de retribuciones',date:'Tribunal Supremo · 19 SEP 2024',url:SOURCE_INVER_SALARIES}]},
@@ -105,25 +115,27 @@ const caseProfiles = {
   azud:{phase:'Investigación judicial abierta',phaseNote:'La nota judicial describe una investigación sobre posibles comisiones ilegales ligadas a operaciones urbanísticas y contratos. Los delitos se enumeran para el conjunto, no de forma individual.',money:'300.000–750.000 €',moneyLabel:'COMISIÓN INVESTIGADA · INFORME UCO',moneyNote:'Horquilla atribuida a Rafael Rubio en un informe policial citado por prensa. No es una cantidad declarada probada, una condena ni una estimación judicial de perjuicio público.',sources:[{title:'Investigación y medidas cautelares del caso Azud',date:'TSJ Comunidad Valenciana · 14 MAY 2021',url:SOURCE_AZUD_CGPJ},{title:'Identificación institucional de Rafael Rubio como PSPV-PSOE',date:'TSJ Comunidad Valenciana · 31 JUL 2020',url:SOURCE_RUBIO_AFFILIATION},{title:'Información sobre el informe de la UCO',date:'La Vanguardia · 21 JUN 2025',url:SOURCE_AZUD_UCO}]},
   plus_ultra:{phase:'Investigación judicial abierta',phaseNote:'José Luis Rodríguez Zapatero, Alba Rodríguez y Laura Rodríguez figuran como investigados. No existe sentencia y las hijas fueron incorporadas para garantizar su derecho de defensa sin que el auto concrete delitos para ellas.',money:'53.000.000 €',moneyLabel:'AYUDA PÚBLICA EXAMINADA',moneyNote:'Importe del préstamo público concedido a Plus Ultra. Es el volumen de la operación investigada: no equivale a dinero robado, perjuicio probado ni beneficio personal de los nodos.',sources:[{title:'Auto de investigación de José Luis Rodríguez Zapatero',date:'Audiencia Nacional · 18 MAY 2026',url:SOURCE_PLUS_ULTRA_AUTO},{title:'Auto que amplía las diligencias',date:'Audiencia Nacional · 18 JUN 2026',url:SOURCE_PLUS_ULTRA_DAUGHTERS},{title:'Resumen y cautelas del auto sobre las hijas',date:'EFE · 18 JUN 2026',url:SOURCE_PLUS_ULTRA_EFE}]},
   begona_gomez:{phase:'Continuación del procedimiento con jurado',phaseNote:'La Audiencia Provincial ordenó continuar por presuntos delitos de tráfico de influencias y malversación, y sobreseyó corrupción en los negocios y apropiación indebida. La apertura anterior quedó invalidada al retrotraerse la causa.',money:'No determinado',moneyLabel:'PERJUICIO PÚBLICO PROBADO',moneyNote:'No hay sentencia ni una cuantía de dinero público sustraído declarada probada. Las peticiones de las acusaciones no se presentan como hechos.',sources:[{title:'Estado procesal tras la resolución de la Audiencia',date:'EFE · 18 JUL 2026',url:SOURCE_BEGONA_EFE}]},
-  david_sanchez:{phase:'Condena de primera instancia recurrible',phaseNote:'La Audiencia Provincial de Badajoz lo condenó como cooperador necesario de prevaricación administrativa y lo absolvió del resto de infracciones imputadas. Cabe recurso de apelación.',money:'No determinada',moneyLabel:'APROPIACIÓN PERSONAL PROBADA',moneyNote:'La sentencia no hace pronunciamiento de responsabilidad civil ni fija una cantidad apropiada personalmente por David Sánchez.',sources:[{title:'Sentencia 152/2026',date:'Audiencia Provincial de Badajoz · 14 JUL 2026',url:SOURCE_DAVID_SENTENCE}]}
+  david_sanchez:{phase:'Condena de primera instancia recurrible',phaseNote:'La Audiencia Provincial de Badajoz lo condenó como cooperador necesario de prevaricación administrativa y lo absolvió del resto de infracciones imputadas. Cabe recurso de apelación.',money:'No determinada',moneyLabel:'APROPIACIÓN PERSONAL PROBADA',moneyNote:'La sentencia no hace pronunciamiento de responsabilidad civil ni fija una cantidad apropiada personalmente por David Sánchez.',sources:[{title:'Sentencia 152/2026',date:'Audiencia Provincial de Badajoz · 14 JUL 2026',url:SOURCE_DAVID_SENTENCE}]},
+  roldan:{phase:'Sentencia firme y condena cumplida',phaseNote:'El Tribunal Supremo elevó a 31 años la condena por cohecho, falsedad mercantil, malversación, estafa y delitos contra la Hacienda Pública. La documentación oficial posterior trata la liquidación de las responsabilidades.',money:'578.905.000 ptas',moneyLabel:'RESPONSABILIDAD POR MALVERSACIÓN',moneyNote:'Cantidad cuya restitución al Estado se exigía en la ejecutoria, según el auto penitenciario publicado. Se mantiene en pesetas históricas y separada de la indemnización por delitos fiscales y de las multas.',sources:[{title:'Hechos y condena firme en la causa Roldán',date:'Tribunal Constitucional / BOE · 04 JUL 2011',url:SOURCE_ROLDAN_TC},{title:'Condena de 31 años y delitos',date:'RTVE · 24 MAR 2022',url:SOURCE_ROLDAN_RTVE},{title:'Responsabilidad por malversación en la ejecutoria',date:'Audiencia Provincial de Madrid / EL PAÍS · 13 ENE 2005',url:SOURCE_ROLDAN_LIQUIDATION}]},
+  urralburu:{phase:'Sentencia firme por cohecho',phaseNote:'El Tribunal Supremo redujo la condena inicial y mantuvo cuatro años de prisión por cohecho. La referencia oficial del CGPJ identifica la STS de 28 de marzo de 2001 como caso Urralburu.',money:'185.000.000 ptas',moneyLabel:'INCREMENTO PATRIMONIAL ATRIBUIDO',moneyNote:'Cifra histórica atribuida a Urralburu en el procedimiento y recogida en la cobertura de la sentencia. No se confunde con la multa inicial de 780 millones ni con los 530 millones repatriados conjuntamente de cuentas suizas.',sources:[{title:'Referencia oficial a la STS 20/2001 · caso Urralburu',date:'CGPJ · Revista del Poder Judicial',url:SOURCE_URRALBURU_TS},{title:'Condena, vinculación socialista y cuantías históricas',date:'elDiario.es Navarra · 07 SEP 2023',url:SOURCE_URRALBURU_HISTORY}]}
 };
 cases.forEach(item=>Object.assign(item,caseProfiles[item.id]));
 
 const people = [
-  { id:'abalos', name:'José Luis Ábalos', role:'Exministro de Transportes y exsecretario de Organización del PSOE', caseIds:['mascarillas','obras'], status:'juicio', x:-62,y:-10,z:90,
-    charge:'Acusado en la pieza de contratos de mascarillas',
-    chargeNote:'Hechos provisionalmente calificados como organización criminal, cohecho, uso de información privilegiada, tráfico de influencias, malversación, falsedad y prevaricación. No existe condena en esta pieza en la fecha de corte.',
-    money:'60.000 €', moneyLabel:'FIANZA PECUNIARIA', moneyNote:'Garantía fijada para posibles responsabilidades; no equivale a dinero sustraído, beneficio personal ni perjuicio público probado.',
+  { id:'abalos', name:'José Luis Ábalos', role:'Exministro de Transportes y exsecretario de Organización del PSOE', caseIds:['mascarillas','obras'], status:'revision', x:-62,y:-10,z:90,
+    charge:'Condenado por organización criminal, cohecho, tráfico de influencias y malversación; nulidad solicitada',
+    chargeNote:'El Supremo impuso 24 años y tres meses de prisión y lo absolvió de prevaricación, uso de información privilegiada y falsedad. En julio de 2026 solicitó la nulidad de la sentencia como paso previo a un recurso de amparo.',
+    money:'340.000 €', moneyLabel:'PAGOS MENSUALES OBJETO DE COMISO', moneyNote:'Parte principal del comiso conjunto de 430.298 €. La sentencia añade rentas de viviendas y responsabilidad civil compartida; la cifra no debe sumarse otra vez al total del caso.',
     sources:[...sharedMasksSources,...sharedWorksSources] },
-  { id:'koldo', name:'Koldo García Izaguirre', role:'Exasesor del Ministerio de Transportes', caseIds:['mascarillas','obras'], status:'juicio', x:82,y:-28,z:42,
-    charge:'Acusado en la pieza de contratos de mascarillas',
-    chargeNote:'Hechos provisionalmente calificados como organización criminal, cohecho, uso y aprovechamiento de información privilegiada, tráfico de influencias, malversación, falsedad y prevaricación.',
-    money:'60.000 €', moneyLabel:'FIANZA PECUNIARIA', moneyNote:'Garantía para posibles responsabilidades. No es una atribución judicial de enriquecimiento ni una estimación de dinero público perdido.',
+  { id:'koldo', name:'Koldo García Izaguirre', role:'Exasesor del Ministerio de Transportes', caseIds:['mascarillas','obras'], status:'revision', x:82,y:-28,z:42,
+    charge:'Condenado por organización criminal, cohecho, tráfico de influencias y malversación',
+    chargeNote:'El Supremo impuso 19 años y ocho meses de prisión y lo absolvió de prevaricación, uso de información privilegiada y falsedad. La ficha conserva el estado no firme mientras se sustancian las impugnaciones posteriores a la sentencia.',
+    money:'43.950,54 €', moneyLabel:'RESPONSABILIDAD CIVIL COMPARTIDA', moneyNote:'Indemnizaciones a Ineco y Tragsatec por contrataciones irregulares. Es responsabilidad civil del fallo, distinta del comiso conjunto de 430.298 € y no una apropiación personal íntegra.',
     sources:[...sharedMasksSources,...sharedWorksSources] },
-  { id:'aldama', name:'Víctor de Aldama', role:'Empresario', caseIds:['mascarillas','obras'], status:'juicio', x:30,y:-155,z:-12,
-    charge:'Acusado en la pieza de contratos de mascarillas',
-    chargeNote:'El auto abre juicio por hechos provisionalmente calificados, entre otros, como cohecho activo, tráfico de influencias, organización criminal, malversación, falsedad y prevaricación.',
-    money:'No fijada', moneyLabel:'CUANTÍA PERSONAL', moneyNote:'La fuente primaria incorporada no atribuye en su parte dispositiva una cantidad sustraída personalmente a este acusado.',
+  { id:'aldama', name:'Víctor de Aldama', role:'Empresario', caseIds:['mascarillas','obras'], status:'revision', x:30,y:-155,z:-12,
+    charge:'Condenado por organización criminal y cohecho; ejecución de prisión suspendida por colaboración',
+    chargeNote:'El Supremo impuso cuatro años y medio y lo absolvió de inducción a la prevaricación, aprovechamiento de información privilegiada y falsedad. Suspendió la pena de prisión con condiciones por su aportación al descubrimiento de los delitos.',
+    money:'72.000 €', moneyLabel:'MULTA PENAL', moneyNote:'Multa impuesta en la sentencia. El comiso de 430.298 € es conjunto para los tres condenados y se muestra en la ficha del caso para evitar duplicaciones.',
     sources:[...sharedMasksSources,...sharedWorksSources] },
   { id:'cerdan', name:'Santos Cerdán', role:'Exsecretario de Organización del PSOE', caseIds:['obras'], status:'investigacion', x:278,y:90,z:-5,
     charge:'Investigado en la pieza de adjudicaciones de obras',
@@ -284,7 +296,17 @@ const people = [
     charge:'Condena de primera instancia por cooperación necesaria en prevaricación administrativa',
     chargeNote:'La sentencia impone nueve años de inhabilitación y lo absuelve del resto de infracciones. Es recurrible ante el TSJ de Extremadura y no se presenta como firme.',
     money:'No determinada', moneyLabel:'APROPIACIÓN PERSONAL PROBADA', moneyNote:'La sentencia no fija responsabilidad civil ni una suma apropiada personalmente por el condenado.',
-    sources:[{title:'Sentencia 152/2026 íntegra',date:'Audiencia Provincial de Badajoz · 14 JUL 2026',url:SOURCE_DAVID_SENTENCE}] }
+    sources:[{title:'Sentencia 152/2026 íntegra',date:'Audiencia Provincial de Badajoz · 14 JUL 2026',url:SOURCE_DAVID_SENTENCE}] },
+  { id:'luis_roldan', name:'Luis Roldán Ibáñez', role:'Exdirector general de la Guardia Civil y antiguo dirigente socialista', caseIds:['roldan','urralburu'], status:'condena', x:-500,y:-135,z:15,
+    charge:'Condena firme por cohecho, falsedad mercantil, malversación, estafa y delitos fiscales',
+    chargeNote:'El Tribunal Supremo elevó la condena a 31 años de prisión. Su presencia en el caso Urralburu refleja la conexión procesal navarra documentada, sin mezclar las cuantías de ambos expedientes.',
+    money:'578.905.000 ptas', moneyLabel:'RESPONSABILIDAD POR MALVERSACIÓN', moneyNote:'Obligación de restitución al Estado recogida en la ejecutoria. Se mantiene separada de 957.720.504 pesetas por delitos fiscales, multas y otros importes atribuidos al conjunto de las tramas.',
+    sources:[{title:'Hechos firmes y conexiones con fondos reservados',date:'Tribunal Constitucional / BOE · 04 JUL 2011',url:SOURCE_ROLDAN_TC},{title:'Condena y trayectoria pública',date:'RTVE · 24 MAR 2022',url:SOURCE_ROLDAN_RTVE},{title:'Responsabilidades económicas en ejecutoria',date:'Audiencia Provincial de Madrid / EL PAÍS · 13 ENE 2005',url:SOURCE_ROLDAN_LIQUIDATION}] },
+  { id:'gabriel_urralburu', name:'Gabriel Urralburu Tainta', role:'Expresidente socialista del Gobierno de Navarra y ex secretario general del PSN-PSOE', caseIds:['urralburu'], status:'condena', x:-510,y:185,z:20,
+    charge:'Condena firme por cohecho en adjudicaciones de obra pública',
+    chargeNote:'El Tribunal Supremo redujo a cuatro años de prisión la condena inicial y mantuvo el cohecho. La ficha no conserva como vigentes los dos delitos fiscales anulados al considerarlos incompatibles con el origen ilícito de las ganancias.',
+    money:'185.000.000 ptas', moneyLabel:'INCREMENTO PATRIMONIAL ATRIBUIDO', moneyNote:'Cifra histórica atribuida personalmente en el procedimiento. No se suma con la multa inicial posteriormente revisada ni con fondos repatriados conjuntamente desde cuentas de varios condenados.',
+    sources:[{title:'Referencia oficial a la STS 20/2001',date:'CGPJ · Revista del Poder Judicial',url:SOURCE_URRALBURU_TS},{title:'Sentencia, afiliación y cuantías del caso',date:'elDiario.es Navarra · 07 SEP 2023',url:SOURCE_URRALBURU_HISTORY}] }
 ].map(p=>({...p,kind:'person',initials:p.name.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase()}));
 
 const entities = [
@@ -317,6 +339,7 @@ actors.forEach(actor=>actor.caseIds.forEach(caseId=>links.push({a:actor.id,b:cas
   ,{a:'riopedre_marea',b:'renedo_marea',type:'Condenados en el caso Marea'}
   ,{a:'otero_marea',b:'renedo_marea',type:'Condenadas en el caso Marea'}
   ,{a:'torrejon_ciempo',b:'tejeiro_ciempo',type:'Condenados por el mismo contrato falso'}
+  ,{a:'luis_roldan',b:'gabriel_urralburu',type:'Coincidieron en la trama navarra de adjudicaciones y comisiones'}
 ].forEach(relation=>links.push(relation));
 
 const canvas=document.querySelector('#networkCanvas'), ctx=canvas.getContext('2d'), wrap=document.querySelector('#canvasWrap');
